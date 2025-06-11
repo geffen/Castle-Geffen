@@ -1,5 +1,4 @@
-// CURRENT VERSION - Transfer to VS Code: src/index.ts
-// This is the main game file using geometric shapes (no 3D models required)
+// Castle Geffen - Main game file using geometric shapes
 
 import { 
   engine, 
@@ -24,7 +23,7 @@ export function main() {
   MeshRenderer.create(terrain, {
     mesh: {
       $case: 'box',
-      box: { }
+      box: { uvs: [] }
     }
   })
   Material.create(terrain, {
@@ -46,7 +45,7 @@ export function main() {
     { pos: Vector3.create(4, -1.5, 32), scale: Vector3.create(4, 1, 52) }
   ]
 
-  moatSegments.forEach((segment, index) => {
+  moatSegments.forEach((segment) => {
     const moatPart = engine.addEntity()
     Transform.create(moatPart, {
       position: segment.pos,
@@ -55,7 +54,7 @@ export function main() {
     MeshRenderer.create(moatPart, {
       mesh: {
         $case: 'box',
-        box: { }
+        box: { uvs: [] }
       }
     })
     Material.create(moatPart, {
@@ -89,7 +88,7 @@ export function main() {
     scale: Vector3.create(48, 8, 2)
   })
   MeshRenderer.create(northWall, {
-    mesh: { $case: 'box', box: { } }
+    mesh: { $case: 'box', box: { uvs: [] } }
   })
   Material.create(northWall, wallMaterial)
   MeshCollider.create(northWall)
@@ -101,7 +100,7 @@ export function main() {
     scale: Vector3.create(24, 8, 2)
   })
   MeshRenderer.create(southWall, {
-    mesh: { $case: 'box', box: { } }
+    mesh: { $case: 'box', box: { uvs: [] } }
   })
   Material.create(southWall, wallMaterial)
   MeshCollider.create(southWall)
@@ -113,7 +112,7 @@ export function main() {
     scale: Vector3.create(8, 8, 2)
   })
   MeshRenderer.create(southWallRight, {
-    mesh: { $case: 'box', box: { } }
+    mesh: { $case: 'box', box: { uvs: [] } }
   })
   Material.create(southWallRight, wallMaterial)
   MeshCollider.create(southWallRight)
@@ -125,7 +124,7 @@ export function main() {
     scale: Vector3.create(2, 8, 48)
   })
   MeshRenderer.create(eastWall, {
-    mesh: { $case: 'box', box: { } }
+    mesh: { $case: 'box', box: { uvs: [] } }
   })
   Material.create(eastWall, wallMaterial)
   MeshCollider.create(eastWall)
@@ -137,7 +136,7 @@ export function main() {
     scale: Vector3.create(2, 8, 48)
   })
   MeshRenderer.create(westWall, {
-    mesh: { $case: 'box', box: { } }
+    mesh: { $case: 'box', box: { uvs: [] } }
   })
   Material.create(westWall, wallMaterial)
   MeshCollider.create(westWall)
@@ -149,7 +148,7 @@ export function main() {
     scale: Vector3.create(16, 35, 16)
   })
   MeshRenderer.create(keep, {
-    mesh: { $case: 'box', box: { } }
+    mesh: { $case: 'box', box: { uvs: [] } }
   })
   Material.create(keep, {
     material: {
@@ -182,7 +181,7 @@ export function main() {
     { pos: Vector3.create(40, 12.5, 56), name: 'SE' }
   ]
 
-  towers.forEach((towerData, index) => {
+  towers.forEach((towerData) => {
     const tower = engine.addEntity()
     Transform.create(tower, {
       position: towerData.pos,
@@ -223,7 +222,7 @@ export function main() {
     scale: Vector3.create(8, 1, 6)
   })
   MeshRenderer.create(drawbridge, {
-    mesh: { $case: 'box', box: { } }
+    mesh: { $case: 'box', box: { uvs: [] } }
   })
   Material.create(drawbridge, {
     material: {
@@ -236,7 +235,7 @@ export function main() {
     }
   })
   MeshCollider.create(drawbridge, {
-    mesh: { $case: 'box', box: { } }
+    mesh: { $case: 'box', box: { uvs: [] } }
   })
 
   // Add drawbridge component
@@ -273,7 +272,7 @@ export function main() {
     scale: Vector3.create(24, 0.2, 24)
   })
   MeshRenderer.create(courtyard, {
-    mesh: { $case: 'box', box: { } }
+    mesh: { $case: 'box', box: { uvs: [] } }
   })
   Material.create(courtyard, {
     material: {
@@ -287,7 +286,7 @@ export function main() {
   })
 
   // Flagpoles on towers
-  towers.forEach((towerData, index) => {
+  towers.forEach((towerData) => {
     const flagpole = engine.addEntity()
     Transform.create(flagpole, {
       position: Vector3.create(towerData.pos.x, towerData.pos.y + 20, towerData.pos.z),
@@ -314,7 +313,7 @@ export function main() {
       scale: Vector3.create(2, 1.5, 0.1)
     })
     MeshRenderer.create(flag, {
-      mesh: { $case: 'box', box: { } }
+      mesh: { $case: 'box', box: { uvs: [] } }
     })
     Material.create(flag, {
       material: {
@@ -335,7 +334,7 @@ export function main() {
     scale: Vector3.create(12, 16, 8)
   })
   MeshRenderer.create(gatehouse, {
-    mesh: { $case: 'box', box: { } }
+    mesh: { $case: 'box', box: { uvs: [] } }
   })
   Material.create(gatehouse, towerMaterial)
   MeshCollider.create(gatehouse)
@@ -347,7 +346,7 @@ export function main() {
     scale: Vector3.create(6, 8, 0.2)
   })
   MeshRenderer.create(portcullis, {
-    mesh: { $case: 'box', box: { } }
+    mesh: { $case: 'box', box: { uvs: [] } }
   })
   Material.create(portcullis, {
     material: {
@@ -363,6 +362,5 @@ export function main() {
   // SYSTEMS INITIALIZATION
   setupDrawbridgeSystem()
 
-  console.log('Castle Geffen initialized with programmed geometric shapes!')
-  console.log('Features: Main keep, 4 towers, walls, drawbridge, gatehouse, and decorations')
+  console.log('Castle Geffen initialized!')
 }
