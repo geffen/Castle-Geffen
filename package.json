@@ -1,0 +1,34 @@
+{
+  "name": "castle-geffen",
+  "version": "1.0.0",
+  "description": "A Decentraland estate featuring Castle Geffen with an interactive drawbridge",
+  "main": "bin/index.js",
+"scripts": {
+  "start": "dcl start --no-watch",
+  "build": "dcl build",
+  "watch": "dcl build --watch --poll 5000",
+  "deploy": "dcl deploy",
+  "export": "dcl export"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geffenz/castle-geffen.git"
+  },
+  "keywords": [
+    "decentraland",
+    "dcl",
+    "scene",
+    "castle",
+    "medieval"
+  ],
+  "author": "Geffen",
+  "license": "MIT",
+  "devDependencies": {
+    "@dcl/sdk": "^7.4.4"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "bundleDependencies": []
+}
