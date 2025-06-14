@@ -1,6 +1,8 @@
 {
   "display": {
-    "title": "CastleGeffen"
+    "title": "CastleGeffen",
+    "description": "",
+    "navmapThumbnail": ""
   },
   "contact": {
     "name": "Geffen",
@@ -40,7 +42,9 @@
     "ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE"
   ],
   "main": "bin/game.js",
-  "tags": ["CastleGeffen"],
+  "tags": [
+    "CastleGeffen"
+  ],
   "spawnPoints": [
     {
       "name": "spawn1",
@@ -55,6 +59,14 @@
         "y": 16,
         "z": 32
       }
-	}
-  ]
+    }
+  ],
+  "featureToggles": {
+    "voiceChat": "enabled",
+    "portableExperiences": "enabled"
+  },
+  "source": {
+    "origin": "creator-hub",
+    "projectId": "df2c0463-a4e7-43b6-a32c-89631d793ddc"
+  }
 }

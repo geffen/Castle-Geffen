@@ -1,366 +1,124 @@
-// Castle Geffen - Main game file using geometric shapes
+// Castle Geffen - Simplified cube version for testing
 
 import { 
   engine, 
   Transform, 
   MeshRenderer, 
   Material, 
-  InputAction, 
-  pointerEventsSystem,
   MeshCollider
 } from '@dcl/sdk/ecs'
-import { Vector3, Quaternion, Color4 } from '@dcl/sdk/math'
-import { DrawbridgeComponent, DrawbridgeState } from './components/drawbridge'
-import { setupDrawbridgeSystem } from './systems/drawbridge'
+import { Vector3, Color4 } from '@dcl/sdk/math'
 
 export function main() {
-  // TERRAIN & ENVIRONMENT
-  const terrain = engine.addEntity()
-  Transform.create(terrain, {
-    position: Vector3.create(32, -0.5, 32),
-    scale: Vector3.create(64, 1, 64)
+  console.log('Castle Geffen - Starting simplified version...')
+  
+  // GREEN GROUND PLANE
+  const ground = engine.addEntity()
+  Transform.create(ground, {
+    position: Vector3.create(32, 0, 32),
+    scale: Vector3.create(64, 0.5, 64)
   })
-  MeshRenderer.create(terrain, {
+  MeshRenderer.create(ground, {
     mesh: {
       $case: 'box',
       box: { uvs: [] }
     }
   })
-  Material.create(terrain, {
+  Material.create(ground, {
     material: {
       $case: 'pbr',
       pbr: {
-        albedoColor: Color4.create(0.4, 0.6, 0.2, 1),
-        roughness: 0.8,
-        metallic: 0.1
+        albedoColor: Color4.create(0.2, 0.8, 0.2, 1)
       }
     }
   })
 
-  // MOAT SEGMENTS
-  const moatSegments = [
-    { pos: Vector3.create(32, -1.5, 4), scale: Vector3.create(52, 1, 4) },
-    { pos: Vector3.create(24, -1.5, 60), scale: Vector3.create(36, 1, 4) },
-    { pos: Vector3.create(60, -1.5, 32), scale: Vector3.create(4, 1, 52) },
-    { pos: Vector3.create(4, -1.5, 32), scale: Vector3.create(4, 1, 52) }
-  ]
-
-  moatSegments.forEach((segment) => {
-    const moatPart = engine.addEntity()
-    Transform.create(moatPart, {
-      position: segment.pos,
-      scale: segment.scale
-    })
-    MeshRenderer.create(moatPart, {
-      mesh: {
-        $case: 'box',
-        box: { uvs: [] }
-      }
-    })
-    Material.create(moatPart, {
-      material: {
-        $case: 'pbr',
-        pbr: {
-          albedoColor: Color4.create(0.2, 0.4, 0.8, 0.8),
-          roughness: 0.1,
-          metallic: 0.0
-        }
-      }
-    })
-  })
-
-  // CASTLE WALLS
-  const wallMaterial = {
-    material: {
-      $case: 'pbr' as const,
-      pbr: {
-        albedoColor: Color4.create(0.7, 0.6, 0.4, 1),
-        roughness: 0.9,
-        metallic: 0.0
-      }
-    }
-  }
-
-  // North wall
-  const northWall = engine.addEntity()
-  Transform.create(northWall, {
-    position: Vector3.create(32, 4, 8),
-    scale: Vector3.create(48, 8, 2)
-  })
-  MeshRenderer.create(northWall, {
-    mesh: { $case: 'box', box: { uvs: [] } }
-  })
-  Material.create(northWall, wallMaterial)
-  MeshCollider.create(northWall)
-
-  // South wall (left side of drawbridge)
-  const southWall = engine.addEntity()
-  Transform.create(southWall, {
-    position: Vector3.create(16, 4, 56),
-    scale: Vector3.create(24, 8, 2)
-  })
-  MeshRenderer.create(southWall, {
-    mesh: { $case: 'box', box: { uvs: [] } }
-  })
-  Material.create(southWall, wallMaterial)
-  MeshCollider.create(southWall)
-
-  // South wall (right side of drawbridge)
-  const southWallRight = engine.addEntity()
-  Transform.create(southWallRight, {
-    position: Vector3.create(36, 4, 56),
-    scale: Vector3.create(8, 8, 2)
-  })
-  MeshRenderer.create(southWallRight, {
-    mesh: { $case: 'box', box: { uvs: [] } }
-  })
-  Material.create(southWallRight, wallMaterial)
-  MeshCollider.create(southWallRight)
-
-  // East wall
-  const eastWall = engine.addEntity()
-  Transform.create(eastWall, {
-    position: Vector3.create(56, 4, 32),
-    scale: Vector3.create(2, 8, 48)
-  })
-  MeshRenderer.create(eastWall, {
-    mesh: { $case: 'box', box: { uvs: [] } }
-  })
-  Material.create(eastWall, wallMaterial)
-  MeshCollider.create(eastWall)
-
-  // West wall
-  const westWall = engine.addEntity()
-  Transform.create(westWall, {
-    position: Vector3.create(8, 4, 32),
-    scale: Vector3.create(2, 8, 48)
-  })
-  MeshRenderer.create(westWall, {
-    mesh: { $case: 'box', box: { uvs: [] } }
-  })
-  Material.create(westWall, wallMaterial)
-  MeshCollider.create(westWall)
-
-  // MAIN CASTLE KEEP
+  // MAIN KEEP - Just a big gray cube
   const keep = engine.addEntity()
   Transform.create(keep, {
-    position: Vector3.create(32, 17.5, 32),
-    scale: Vector3.create(16, 35, 16)
+    position: Vector3.create(32, 10, 32),
+    scale: Vector3.create(16, 20, 16)
   })
   MeshRenderer.create(keep, {
-    mesh: { $case: 'box', box: { uvs: [] } }
+    mesh: {
+      $case: 'box',
+      box: { uvs: [] }
+    }
   })
   Material.create(keep, {
     material: {
       $case: 'pbr',
       pbr: {
-        albedoColor: Color4.create(0.6, 0.5, 0.3, 1),
-        roughness: 0.9,
-        metallic: 0.0
+        albedoColor: Color4.create(0.5, 0.5, 0.5, 1)
       }
     }
   })
   MeshCollider.create(keep)
 
-  // CORNER TOWERS
-  const towerMaterial = {
-    material: {
-      $case: 'pbr' as const,
-      pbr: {
-        albedoColor: Color4.create(0.65, 0.55, 0.35, 1),
-        roughness: 0.9,
-        metallic: 0.0
-      }
-    }
-  }
-
-  const towers = [
-    { pos: Vector3.create(8, 12.5, 8), name: 'NW' },
-    { pos: Vector3.create(56, 12.5, 8), name: 'NE' },
-    { pos: Vector3.create(8, 12.5, 56), name: 'SW' },
-    { pos: Vector3.create(40, 12.5, 56), name: 'SE' }
+  // FOUR CORNER TOWERS - Simple red cubes
+  const towerPositions = [
+    Vector3.create(8, 5, 8),
+    Vector3.create(56, 5, 8),
+    Vector3.create(8, 5, 56),
+    Vector3.create(40, 5, 56)
   ]
 
-  towers.forEach((towerData) => {
+  towerPositions.forEach((pos, index) => {
     const tower = engine.addEntity()
     Transform.create(tower, {
-      position: towerData.pos,
-      scale: Vector3.create(8, 25, 8)
+      position: pos,
+      scale: Vector3.create(8, 10, 8)
     })
     MeshRenderer.create(tower, {
-      mesh: { $case: 'cylinder', cylinder: { } }
+      mesh: {
+        $case: 'box',
+        box: { uvs: [] }
+      }
     })
-    Material.create(tower, towerMaterial)
+    Material.create(tower, {
+      material: {
+        $case: 'pbr',
+        pbr: {
+          albedoColor: Color4.create(0.8, 0.2, 0.2, 1)
+        }
+      }
+    })
     MeshCollider.create(tower)
+  })
 
-    // Tower roof (cone)
-    const roof = engine.addEntity()
-    Transform.create(roof, {
-      position: Vector3.create(towerData.pos.x, towerData.pos.y + 15, towerData.pos.z),
-      scale: Vector3.create(9, 6, 9)
+  // SIMPLE WALLS - Just 4 yellow cubes
+  const walls = [
+    { pos: Vector3.create(32, 3, 8), scale: Vector3.create(48, 6, 2) },   // North
+    { pos: Vector3.create(32, 3, 56), scale: Vector3.create(48, 6, 2) },  // South
+    { pos: Vector3.create(8, 3, 32), scale: Vector3.create(2, 6, 48) },   // West
+    { pos: Vector3.create(56, 3, 32), scale: Vector3.create(2, 6, 48) }   // East
+  ]
+
+  walls.forEach((wall, index) => {
+    const wallEntity = engine.addEntity()
+    Transform.create(wallEntity, {
+      position: wall.pos,
+      scale: wall.scale
     })
-    MeshRenderer.create(roof, {
-      mesh: { $case: 'cylinder', cylinder: { radiusTop: 0, radiusBottom: 1 } }
+    MeshRenderer.create(wallEntity, {
+      mesh: {
+        $case: 'box',
+        box: { uvs: [] }
+      }
     })
-    Material.create(roof, {
+    Material.create(wallEntity, {
       material: {
         $case: 'pbr',
         pbr: {
-          albedoColor: Color4.create(0.4, 0.2, 0.1, 1),
-          roughness: 0.8,
-          metallic: 0.0
+          albedoColor: Color4.create(0.8, 0.8, 0.2, 1)
         }
       }
     })
+    MeshCollider.create(wallEntity)
   })
 
-  // DRAWBRIDGE
-  const drawbridge = engine.addEntity()
-  Transform.create(drawbridge, {
-    position: Vector3.create(26, 1, 57),
-    rotation: Quaternion.fromEulerDegrees(0, 0, 0),
-    scale: Vector3.create(8, 1, 6)
-  })
-  MeshRenderer.create(drawbridge, {
-    mesh: { $case: 'box', box: { uvs: [] } }
-  })
-  Material.create(drawbridge, {
-    material: {
-      $case: 'pbr',
-      pbr: {
-        albedoColor: Color4.create(0.4, 0.2, 0.1, 1),
-        roughness: 0.8,
-        metallic: 0.0
-      }
-    }
-  })
-  MeshCollider.create(drawbridge, {
-    mesh: { $case: 'box', box: { uvs: [] } }
-  })
-
-  // Add drawbridge component
-  DrawbridgeComponent.create(drawbridge, {
-    state: DrawbridgeState.CLOSED,
-    targetRotation: 0,
-    currentRotation: 0,
-    animationSpeed: 45
-  })
-
-  // Add interaction to drawbridge
-  pointerEventsSystem.onPointerDown(
-    {
-      entity: drawbridge,
-      opts: { button: InputAction.IA_PRIMARY, hoverText: 'Open/Close Drawbridge' }
-    },
-    () => {
-      const drawbridgeData = DrawbridgeComponent.getMutable(drawbridge)
-      
-      if (drawbridgeData.state === DrawbridgeState.CLOSED) {
-        drawbridgeData.state = DrawbridgeState.OPENING
-        drawbridgeData.targetRotation = -90
-      } else if (drawbridgeData.state === DrawbridgeState.OPEN) {
-        drawbridgeData.state = DrawbridgeState.CLOSING
-        drawbridgeData.targetRotation = 0
-      }
-    }
-  )
-
-  // DECORATIVE ELEMENTS
-  const courtyard = engine.addEntity()
-  Transform.create(courtyard, {
-    position: Vector3.create(32, 0.1, 32),
-    scale: Vector3.create(24, 0.2, 24)
-  })
-  MeshRenderer.create(courtyard, {
-    mesh: { $case: 'box', box: { uvs: [] } }
-  })
-  Material.create(courtyard, {
-    material: {
-      $case: 'pbr',
-      pbr: {
-        albedoColor: Color4.create(0.2, 0.7, 0.2, 1),
-        roughness: 0.7,
-        metallic: 0.0
-      }
-    }
-  })
-
-  // Flagpoles on towers
-  towers.forEach((towerData) => {
-    const flagpole = engine.addEntity()
-    Transform.create(flagpole, {
-      position: Vector3.create(towerData.pos.x, towerData.pos.y + 20, towerData.pos.z),
-      scale: Vector3.create(0.2, 8, 0.2)
-    })
-    MeshRenderer.create(flagpole, {
-      mesh: { $case: 'cylinder', cylinder: { } }
-    })
-    Material.create(flagpole, {
-      material: {
-        $case: 'pbr',
-        pbr: {
-          albedoColor: Color4.create(0.3, 0.2, 0.1, 1),
-          roughness: 0.9,
-          metallic: 0.0
-        }
-      }
-    })
-
-    // Flag
-    const flag = engine.addEntity()
-    Transform.create(flag, {
-      position: Vector3.create(towerData.pos.x + 1, towerData.pos.y + 22, towerData.pos.z),
-      scale: Vector3.create(2, 1.5, 0.1)
-    })
-    MeshRenderer.create(flag, {
-      mesh: { $case: 'box', box: { uvs: [] } }
-    })
-    Material.create(flag, {
-      material: {
-        $case: 'pbr',
-        pbr: {
-          albedoColor: Color4.create(0.8, 0.1, 0.1, 1),
-          roughness: 0.6,
-          metallic: 0.0
-        }
-      }
-    })
-  })
-
-  // Gatehouse
-  const gatehouse = engine.addEntity()
-  Transform.create(gatehouse, {
-    position: Vector3.create(26, 8, 50),
-    scale: Vector3.create(12, 16, 8)
-  })
-  MeshRenderer.create(gatehouse, {
-    mesh: { $case: 'box', box: { uvs: [] } }
-  })
-  Material.create(gatehouse, towerMaterial)
-  MeshCollider.create(gatehouse)
-
-  // Portcullis (gate bars)
-  const portcullis = engine.addEntity()
-  Transform.create(portcullis, {
-    position: Vector3.create(26, 4, 54),
-    scale: Vector3.create(6, 8, 0.2)
-  })
-  MeshRenderer.create(portcullis, {
-    mesh: { $case: 'box', box: { uvs: [] } }
-  })
-  Material.create(portcullis, {
-    material: {
-      $case: 'pbr',
-      pbr: {
-        albedoColor: Color4.create(0.2, 0.2, 0.2, 1),
-        roughness: 0.4,
-        metallic: 0.8
-      }
-    }
-  })
-
-  // SYSTEMS INITIALIZATION
-  setupDrawbridgeSystem()
-
-  console.log('Castle Geffen initialized!')
+  console.log('Castle Geffen simplified version loaded!')
 }
+
+// Call main immediately when the module loads
+main()

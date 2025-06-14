@@ -34,6 +34,26 @@
       "data": {}
     },
     {
+      "name": "inspector::Selection",
+      "jsonSchema": {
+        "type": "object",
+        "properties": {
+          "gizmo": {
+            "type": "integer",
+            "serializationType": "int32"
+          }
+        },
+        "serializationType": "map"
+      },
+      "data": {
+        "0": {
+          "json": {
+            "gizmo": 0
+          }
+        }
+      }
+    },
+    {
       "name": "inspector::SceneMetadata",
       "jsonSchema": {
         "type": "object",
@@ -314,58 +334,98 @@
       "data": {
         "0": {
           "json": {
-            "name": "New Scene",
-            "description": "Empty Scene Template",
-            "thumbnail": "",
+            "name": "CastleGeffen",
             "categories": [],
-            "author": "SDK",
-            "email": "",
-            "tags": [],
+            "author": "Geffen",
+            "tags": [
+              "CastleGeffen"
+            ],
             "layout": {
+              "base": {
+                "x": 136,
+                "y": -144
+              },
               "parcels": [
                 {
-                  "x": 0,
-                  "y": 0
+                  "x": 136,
+                  "y": -144
+                },
+                {
+                  "x": 136,
+                  "y": -143
+                },
+                {
+                  "x": 136,
+                  "y": -142
+                },
+                {
+                  "x": 136,
+                  "y": -141
+                },
+                {
+                  "x": 137,
+                  "y": -144
+                },
+                {
+                  "x": 137,
+                  "y": -143
+                },
+                {
+                  "x": 137,
+                  "y": -142
+                },
+                {
+                  "x": 137,
+                  "y": -141
+                },
+                {
+                  "x": 138,
+                  "y": -143
+                },
+                {
+                  "x": 138,
+                  "y": -142
+                },
+                {
+                  "x": 138,
+                  "y": -141
+                },
+                {
+                  "x": 139,
+                  "y": -143
+                },
+                {
+                  "x": 139,
+                  "y": -142
+                },
+                {
+                  "x": 139,
+                  "y": -141
                 }
-              ],
-              "base": {
-                "x": 0,
-                "y": 0
-              }
+              ]
             },
-            "silenceVoiceChat": false,
-            "disablePortableExperiences": false,
             "spawnPoints": [
               {
                 "name": "spawn1",
                 "default": true,
                 "position": {
                   "x": {
-                    "$case": "range",
-                    "value": [
-                      0,
-                      3
-                    ]
+                    "$case": "single",
+                    "value": 16
                   },
                   "y": {
-                    "$case": "range",
-                    "value": [
-                      0,
-                      0
-                    ]
+                    "$case": "single",
+                    "value": 1
                   },
                   "z": {
-                    "$case": "range",
-                    "value": [
-                      0,
-                      3
-                    ]
+                    "$case": "single",
+                    "value": 8
                   }
                 },
                 "cameraTarget": {
-                  "x": 8,
-                  "y": 1,
-                  "z": 8
+                  "x": 32,
+                  "y": 16,
+                  "z": 32
                 }
               }
             ]
