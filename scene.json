@@ -1,8 +1,12 @@
+
 {
+  "ecs7": true,
+  "runtimeVersion": "7",
   "display": {
-    "title": "CastleGeffen",
-    "description": "",
-    "navmapThumbnail": ""
+    "title": "Castle-Geffen",
+    "description": "template scene with SDK7",
+    "navmapThumbnail": "images/scene-thumbnail.png",
+    "favicon": "favicon_asset"
   },
   "contact": {
     "name": "Geffen",
@@ -38,35 +42,23 @@
     "voiceEnabled": true,
     "blacklist": []
   },
-  "requiredPermissions": [
-    "ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE"
-  ],
-  "main": "bin/game.js",
-  "tags": [
-    "CastleGeffen"
-  ],
+  "requiredPermissions": [],
+  "main": "bin/index.js",
+  "tags": ["Castle-Geffen"],
   "spawnPoints": [
     {
       "name": "spawn1",
       "default": true,
       "position": {
-        "x": 16,
+        "x": 8,
         "y": 1,
         "z": 8
       },
       "cameraTarget": {
-        "x": 32,
-        "y": 16,
-        "z": 32
+        "x": 16,
+        "y": 2,
+        "z": 16
       }
     }
-  ],
-  "featureToggles": {
-    "voiceChat": "enabled",
-    "portableExperiences": "enabled"
-  },
-  "source": {
-    "origin": "creator-hub",
-    "projectId": "df2c0463-a4e7-43b6-a32c-89631d793ddc"
-  }
+  ]
 }
